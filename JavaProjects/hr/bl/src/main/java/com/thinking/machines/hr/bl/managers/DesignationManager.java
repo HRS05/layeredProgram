@@ -49,7 +49,7 @@ throw blException;
 }//function ends
 
 
-public static DesignationManagerInterface  getDesignationManager() throws BLException
+public static DesignationManagerInterface getDesignationManager() throws BLException
 {
 if(designationManager==null) designationManager=new DesignationManager();
 return designationManager;
@@ -224,49 +224,63 @@ blException.setGenericException(daoException.getMessage());
 
 public DesignationInterface getDesignationByCode(int code) throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
+DesignationInterface designation;
+designation=this.codeWiseDesignationMap.get(code);
+if(designation==null)
+{
+BLException blException;
+blException=new BLException();
+blException.addException("code","Invalid Code : "+code);
 throw blException;
 }
+return designation;
+}//function ends
 
 
 public DesignationInterface getDesignationByTitle(String title) throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
+DesignationInterface designation;
+designation=this.titleWiseDesignationMap.get(title.toUpperCase());
+if(designation==null)
+{
+BLException blException;
+blException=new BLException();
+blException.addException("title","Invalid Title : "+title);
 throw blException;
 }
+return designation;
+}//function ends
 
 
 public int getDesignationCount() throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
-throw blException;
-}
+return this.designationsSet.size();
+}//function ends
 
 
 public boolean designationCodeExists(int code) throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
-throw blException;
-}
+return this.codeWiseDesignationMap.containsKey(code);
+}//function ends
 
 
 public boolean designationTitleExists(String title) throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
-throw blException;
-}
+return this.titleWiseDesignationMap.containsKey(title.toUpperCase());
+}//function ends
 
 
 public Set<DesignationInterface> getDesignation() throws BLException
 {
-BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
-throw blException;
-}
+Set<DesignationInterface> designations;
+designations=new TreeSet<>();
+designationsSet.forEach((designation)->{
+DesignationInterface d=new Designation();
+d.setCode(designation.getCode());
+d.setTitle(designation.getTitle());
+designations.add(d);
+});
+return designations; 
+}//function ends
 
 }//class ends

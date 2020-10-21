@@ -1,35 +1,27 @@
-import com.thinking.machines.hr.bl.managers.*;
 import com.thinking.machines.hr.bl.interfaces.managers.*;
 import com.thinking.machines.hr.bl.interfaces.pojo.*;
-import com.thinking.machines.hr.bl.pojo.*;
 import com.thinking.machines.hr.bl.exceptions.*;
+import com.thinking.machines.hr.bl.pojo.*;
+import com.thinking.machines.hr.bl.managers.*;
 import java.util.*;
-class DesignationManagerAddTestCase
+class DesignationManagerGetDesignationByTitleTestCase
 {
 public static void main(String gg[])
 {
-DesignationInterface designation=new Designation();  
-designation.setTitle("Driver");
+String title=gg[0];
 try
 {
 DesignationManagerInterface designationManager;
 designationManager=DesignationManager.getDesignationManager();
-designationManager.addDesignation(designation);
-System.out.println("Designation added with code as : "+designation.getCode()); 
+DesignationInterface designation;
+designation=designationManager.getDesignationByTitle(title);
+System.out.printf("Code %d, Title %s",designation.getCode(),designation.getTitle());
 }catch(BLException blException)
 {
-if(blException.hasGenericException())
-{
-System.out.println(blException.getGenericException());
-}
 List<String> properties=blException.getProperties();
-for(String property:properties)
-{
+properties.forEach((property)->{
 System.out.println(blException.getException(property));
+});
 }
 }
-
-
-
-
-}}
+}

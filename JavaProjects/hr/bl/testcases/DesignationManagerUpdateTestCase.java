@@ -4,7 +4,7 @@ import com.thinking.machines.hr.bl.interfaces.pojo.*;
 import com.thinking.machines.hr.bl.pojo.*;
 import com.thinking.machines.hr.bl.exceptions.*;
 import java.util.*;
-class DesigantionManagerUpdateTestCase
+class DesignationManagerUpdateTestCase
 {
 public static void main(String gg[])
 {
