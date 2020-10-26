@@ -222,6 +222,14 @@ blException.setGenericException(daoException.getMessage());
 }//function ends
 
 
+// this below method is for internal use 
+DesignationInterface getDSDesignationByCode(int code)
+{
+DesignationInterface designation;
+designation=this.codeWiseDesignationMap.get(code);
+return designation;
+}//function ends
+
 public DesignationInterface getDesignationByCode(int code) throws BLException
 {
 DesignationInterface designation;
@@ -233,7 +241,10 @@ blException=new BLException();
 blException.addException("code","Invalid Code : "+code);
 throw blException;
 }
-return designation;
+DesignationInterface d=new Designation();
+d.setCode(designation.getCode());
+d.setTitle(designation.getTitle());
+return d;
 }//function ends
 
 
@@ -248,7 +259,10 @@ blException=new BLException();
 blException.addException("title","Invalid Title : "+title);
 throw blException;
 }
-return designation;
+DesignationInterface d=new Designation();
+d.setCode(designation.getCode());
+d.setTitle(designation.getTitle());
+return d;
 }//function ends
 
 
