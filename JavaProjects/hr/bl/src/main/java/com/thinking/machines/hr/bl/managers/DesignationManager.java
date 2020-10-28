@@ -114,6 +114,7 @@ this.designationsSet.add(dsDesignation);
 }catch(DAOException daoException)
 {
 blException.setGenericException(daoException.getMessage());
+throw blException;
 }
 }//function ends
 
@@ -187,6 +188,7 @@ this.designationsSet.add(dsDesignation);
 }catch(DAOException daoException)
 {
 blException.setGenericException(daoException.getMessage());
+throw blException;
 }
 }//function ends
 
@@ -218,6 +220,7 @@ this.designationsSet.remove(dsDesignation);
 }catch(DAOException daoException)
 {
 blException.setGenericException(daoException.getMessage());
+throw blException;
 }
 }//function ends
 
