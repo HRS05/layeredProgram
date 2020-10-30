@@ -269,25 +269,25 @@ return d;
 }//function ends
 
 
-public int getDesignationCount() throws BLException
+public int getDesignationCount()
 {
 return this.designationsSet.size();
 }//function ends
 
 
-public boolean designationCodeExists(int code) throws BLException
+public boolean designationCodeExists(int code)
 {
 return this.codeWiseDesignationMap.containsKey(code);
 }//function ends
 
 
-public boolean designationTitleExists(String title) throws BLException
+public boolean designationTitleExists(String title)
 {
 return this.titleWiseDesignationMap.containsKey(title.toUpperCase());
 }//function ends
 
 
-public Set<DesignationInterface> getDesignation() throws BLException
+public Set<DesignationInterface> getDesignation()
 {
 Set<DesignationInterface> designations;
 designations=new TreeSet<>();
