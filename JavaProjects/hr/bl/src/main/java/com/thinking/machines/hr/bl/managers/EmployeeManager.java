@@ -224,6 +224,18 @@ this.employeesSet.add(dsEmployee);
 this.employeeIdWiseEmployeesMap.put(dsEmployee.getEmployeeId().toUpperCase(),dsEmployee);
 this.panNumberWiseEmployeesMap.put(panNumber.toUpperCase(),dsEmployee);
 this.aadharCardNumberWiseEmployeesMap.put(aadharCardNumber.toUpperCase(),dsEmployee);
+Set<EmployeeInterface> ets;
+ets=this.designationCodeWiseEmployeesMap.get(dsEmployee.getDesignation().getCode());
+if(ets==null)
+{
+ets=new TreeSet<>();
+ets.add(dsEmployee);
+this.designationCodeWiseEmployeesMap.put(dsEmployee.getDesignation().getCode(),ets);
+}
+else
+{
+ets.add(dsEmployee);
+} 
 }catch(DAOException daoException)
 {
 blException.setGenericException("daoException.getMessage()");
@@ -357,6 +369,7 @@ EmployeeInterface dsEmployee;
 dsEmployee=employeeIdWiseEmployeesMap.get(employeeId.toUpperCase());
 String oldPANNumber=dsEmployee.getPANNumber();
 String oldAadharCardNumber=dsEmployee.getAadharCardNumber();
+int oldDesignationCode=dsEmployee.getDesignation().getCode();
 EmployeeDAOInterface employeeDAO;
 employeeDAO=new EmployeeDAO();
 EmployeeDTOInterface dlEmployee;
@@ -388,6 +401,24 @@ this.employeesSet.add(dsEmployee);
 this.employeeIdWiseEmployeesMap.put(dsEmployee.getEmployeeId().toUpperCase(),dsEmployee);
 this.panNumberWiseEmployeesMap.put(panNumber.toUpperCase(),dsEmployee);
 this.aadharCardNumberWiseEmployeesMap.put(aadharCardNumber.toUpperCase(),dsEmployee);
+if(oldDesignationCode!=dsEmployee.getDesignation().getCode())
+{
+Set<EmployeeInterface> ets;
+ets=this.designationCodeWiseEmployeesMap.get(oldDesignationCode);
+ets.remove(dsEmployee);
+ets=this.designationCodeWiseEmployeesMap.get(dsEmployee.getDesignation().getCode());
+if(ets==null)
+{
+ets=new TreeSet<>();
+ets.add(dsEmployee);
+this.designationCodeWiseEmployeesMap.put(dsEmployee.getDesignation().getCode(),ets);
+}
+else
+{
+ets.add(dsEmployee);
+} 
+}
+
 }catch(DAOException daoException)
 {
 blException.setGenericException("daoException.getMessage()");
@@ -430,11 +461,14 @@ dsEmployee=employeeIdWiseEmployeesMap.get(employeeId.toUpperCase());
 EmployeeDAOInterface employeeDAO;
 employeeDAO=new EmployeeDAO();
 employeeDAO.delete(dsEmployee.getEmployeeId());
-//update dataStructure
+//removing from dataStructure
 this.employeesSet.remove(dsEmployee);
 this.employeeIdWiseEmployeesMap.remove(dsEmployee.getEmployeeId().toUpperCase());
 this.panNumberWiseEmployeesMap.remove(dsEmployee.getPANNumber().toUpperCase());
 this.aadharCardNumberWiseEmployeesMap.remove(dsEmployee.getAadharCardNumber().toUpperCase());
+Set<EmployeeInterface> ets;
+ets=this.designationCodeWiseEmployeesMap.get(dsEmployee.getDesignation().getCode());
+ets.remove(dsEmployee);
 }catch(DAOException daoException)
 {
 BLException blException=new BLException();
@@ -543,7 +577,7 @@ public boolean employeeAadharCardNumberExists(String aadharCardNumber)
 return this.aadharCardNumberWiseEmployeesMap.containsKey(aadharCardNumber);
 }//function ends
 
-public Set<EmployeeInterface> getEmployee()
+public Set<EmployeeInterface> getEmployees()
 {
 Set<EmployeeInterface> employees=new TreeSet<>();
 EmployeeInterface employee;
@@ -568,13 +602,45 @@ employees.add(employee);
 return employees;
 }//function ends
 
-public Set<EmployeeInterface> getEmployeeByDesignationCode(int designationCode) throws BLException
+
+public Set<EmployeeInterface> getEmployeesByDesignationCode(int designationCode) throws BLException
+{ 
+DesignationManagerInterface designationManager;
+designationManager=DesignationManager.getDesignationManager();
+if(designationManager.designationCodeExists(designationCode)==false)
 {
 BLException blException=new BLException();
-blException.setGenericException("Not yet implemented");
-throw blException;
-
+blException.setGenericException("Invalid designation code "+designationCode);
+}
+Set<EmployeeInterface> employees=new TreeSet<>();
+Set<EmployeeInterface> ets;
+ets=this.designationCodeWiseEmployeesMap.get(designationCode);
+if(ets==null)
+{
+return employees; 
+}
+EmployeeInterface employee;
+DesignationInterface designation;
+for(EmployeeInterface dsEmployee:ets)
+{
+employee=new Employee();
+employee.setEmployeeId(dsEmployee.getEmployeeId());
+employee.setName(dsEmployee.getName());
+designation=new Designation(); 
+designation.setCode(dsEmployee.getDesignation().getCode());
+designation.setTitle(dsEmployee.getDesignation().getTitle());
+employee.setDesignation(designation);
+employee.setDateOfBirth((Date)dsEmployee.getDateOfBirth().clone());
+employee.setGender((dsEmployee.getGender()=='M')?GENDER.MALE:GENDER.FEMALE);
+employee.setIsIndian(dsEmployee.getIsIndian());
+employee.setBasicSalary(dsEmployee.getBasicSalary());
+employee.setPANNumber(dsEmployee.getPANNumber());
+employee.setAadharCardNumber(dsEmployee.getAadharCardNumber());
+employees.add(employee);
+}
+return employees;
 }//function ends
+
 
 public int getEmployeeCountByDesignationCode(int designationCode) throws BLException
 {

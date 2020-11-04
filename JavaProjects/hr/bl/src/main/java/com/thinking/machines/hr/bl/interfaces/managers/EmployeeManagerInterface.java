@@ -15,8 +15,8 @@ public int getEmployeeCount();
 public boolean employeeIdExists(String employeeId);
 public boolean employeePANNumberExists(String panNumber);
 public boolean employeeAadharCardNumberExists(String aadharCardNumber);
-public Set<EmployeeInterface> getEmployee();
-public Set<EmployeeInterface> getEmployeeByDesignationCode(int designationCode) throws BLException;
+public Set<EmployeeInterface> getEmployees();
+public Set<EmployeeInterface> getEmployeesByDesignationCode(int designationCode) throws BLException;
 public int getEmployeeCountByDesignationCode(int designationCode) throws BLException;
 public boolean designationAlloted(int designationCode) throws BLException;
 
