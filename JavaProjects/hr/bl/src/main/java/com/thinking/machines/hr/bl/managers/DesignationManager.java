@@ -287,7 +287,7 @@ return this.titleWiseDesignationMap.containsKey(title.toUpperCase());
 }//function ends
 
 
-public Set<DesignationInterface> getDesignation()
+public Set<DesignationInterface> getDesignations()
 {
 Set<DesignationInterface> designations;
 designations=new TreeSet<>();

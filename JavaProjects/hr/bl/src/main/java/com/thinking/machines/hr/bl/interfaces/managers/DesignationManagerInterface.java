@@ -13,5 +13,5 @@ public DesignationInterface getDesignationByTitle(String title) throws BLExcepti
 public int getDesignationCount();
 public boolean designationCodeExists(int code);
 public boolean designationTitleExists(String title);
-public Set<DesignationInterface> getDesignation();
+public Set<DesignationInterface> getDesignations();
 } 
