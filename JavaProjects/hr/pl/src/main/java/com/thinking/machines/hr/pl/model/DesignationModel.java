@@ -173,6 +173,16 @@ this.designations.remove(index);
 fireTableDataChanged();
 }//function ends
 
+public DesignationInterface getDesignationAt(int index) throws BLException
+{
+if(index<0 || index>=this.designations.size())
+{
+BLException blException=new BLException();
+blException.setGenericException("Invalid index : "+index);
+throw blException;
+}
+return this.designations.get(index);
+}//function ends
 
 }//class ends
 

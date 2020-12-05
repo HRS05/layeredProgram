@@ -611,6 +611,7 @@ if(designationManager.designationCodeExists(designationCode)==false)
 {
 BLException blException=new BLException();
 blException.setGenericException("Invalid designation code "+designationCode);
+throw blException;
 }
 Set<EmployeeInterface> employees=new TreeSet<>();
 Set<EmployeeInterface> ets;
