@@ -42,14 +42,14 @@ designationPanel.setViewMode();
 }
 private void initComponents()
 {
-logoIcon=new ImageIcon(this.getClass().getResource("/icons/logo.png"));
-addIcon=new ImageIcon(this.getClass().getResource("/icons/add_icon.jpg"));
-editIcon=new ImageIcon(this.getClass().getResource("/icons/edit_icon.jpg"));
-cancelIcon=new ImageIcon(this.getClass().getResource("/icons/cancel_icon.jpg"));
-saveIcon=new ImageIcon(this.getClass().getResource("/icons/save_icon.jpg"));
-deleteIcon=new ImageIcon(this.getClass().getResource("/icons/delete_icon.jpg"));
-pdfIcon=new ImageIcon(this.getClass().getResource("/icons/pdf_icon.jpg"));
-clearIcon=new ImageIcon(this.getClass().getResource("/icons/clear_icon.jpg"));
+logoIcon=new ImageIcon(this.getClass().getResource("/icons/logo_icon.png"));
+addIcon=new ImageIcon(this.getClass().getResource("/icons/add_icon.png"));
+editIcon=new ImageIcon(this.getClass().getResource("/icons/edit_icon.png"));
+cancelIcon=new ImageIcon(this.getClass().getResource("/icons/cancel_icon.png"));
+saveIcon=new ImageIcon(this.getClass().getResource("/icons/save_icon.png"));
+deleteIcon=new ImageIcon(this.getClass().getResource("/icons/delete_icon.png"));
+pdfIcon=new ImageIcon(this.getClass().getResource("/icons/pdf_icon.png"));
+clearIcon=new ImageIcon(this.getClass().getResource("/icons/cancel_icon.png"));
 setIconImage(logoIcon.getImage());
 designationModel=new DesignationModel(); 
 titleLabel=new JLabel("Designations");
@@ -60,10 +60,8 @@ searchErrorLabel=new JLabel("");
 designationTable=new JTable(designationModel);
 scrollPane=new JScrollPane(designationTable,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 container=getContentPane();
-
 designationPanel=new DesignationPanel();
-
-
+setDefaultCloseOperation(EXIT_ON_CLOSE);
 }//function ends
 
 private void setAppearance()
@@ -295,7 +293,7 @@ lm=0;
 tm=0;
 titleCaptionLabel.setBounds(lm,tm+10+5,110,30);
 titleLabel.setBounds(lm+110+5,tm+20,400,20);
-titleTextField.setBounds(lm+10+110+5,tm+20,400,30);
+titleTextField.setBounds(lm+10+110+5,tm+20,350,30);
 clearTitleTextFieldButton.setBounds(lm+10+110+5+350+5,tm+20,30,30);
 buttonsPanel.setBounds(50,tm+20+30+30,465,90); //75 last one
 buttonsPanel.setBorder(BorderFactory.createLineBorder(new Color(165,165,165)));
@@ -519,6 +517,13 @@ public void actionPerformed(ActionEvent ev)
 {
 setDeleteMode();
 }
+});
+this.clearTitleTextFieldButton.addActionListener(new ActionListener(){
+public void actionPerformed(ActionEvent ev)
+{
+titleTextField.setText("");
+titleTextField.requestFocus();
+} 
 });
 
 }//funtion ends

@@ -203,7 +203,7 @@ if(file.exists()) file.delete();
 PdfWriter pdfWriter=new PdfWriter(file);
 PdfDocument pdfDocument=new PdfDocument(pdfWriter);
 Document doc=new Document(pdfDocument);
-Image logo=new Image(ImageDataFactory.create(this.getClass().getResource("/icons/logo.png")));
+Image logo=new Image(ImageDataFactory.create(this.getClass().getResource("/icons/logo_icon.png")));
 Paragraph logoPara=new Paragraph();
 logoPara.add(logo);
 Paragraph companyNamePara=new Paragraph();
